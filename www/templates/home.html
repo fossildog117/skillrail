@@ -1,0 +1,9 @@
+<ion-view view-title="Home" class="view-dark">
+    <ion-content overflow-scroll="true" padding="true" class="has-header" ng-controller="userInfo">
+        <form class="list"></form>
+        <ion-list>
+            <ion-item class="item-divider">Suggested Jobs for {{userInfo.name}}:</ion-item>
+            <ion-item  ui-sref="jobDetails" ion-item ng-repeat="suggestedjob in suggestedjobs">{{suggestedjob.name}}</ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,12 @@
+<ion-view title="Listings">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <ion-list ng-controller="viewListingsController">
+          <div class="list">
+            <a ng-repeat="item in listing" class="button button-stable button-block ">
+              <h4>{{item.title}}</h4>
+              <p>{{item.description}}</p>
+              <p>{{item.price}}</p>
+            </a>
+          </div>
+    </ion-content>
+</ion-view>

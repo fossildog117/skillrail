@@ -1,0 +1,8 @@
+<ion-view title="Active Jobs" class="view-dark">
+    <ion-content overflow-scroll="true" padding="true" class="has-header" ng-controller="activeJobsCtrl">
+        	<ion-list>
+            <ion-item class="item-divider">Your Jobs</ion-item>
+            	<ion-item ui-sref="jobStatus" ng-repeat="job in jobs"> {{job.name}} </ion-item>
+        	</ion-list>
+    </ion-content>
+</ion-view>
