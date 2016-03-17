@@ -1,11 +1,12 @@
 <ion-view view-title="Job Name" class="view-dark">
-    <ion-content overflow-scroll="true" padding="true" class="has-header">
-      <div class="list card">
+    <ion-content overflow-scroll="true" padding="true" ng-controller="homeCtrl" class="has-header">
+      <div class="list card" ng-repeat="suggestedjob in suggestedjobs | filter : {id: filterById()}: true" >
 
         <a class="item item-avatar">
           <img src="https://s.ytimg.com/yts/img/yt_1200-vfl4C3T0K.png">
-          <h2>Company name</h2>
-          <p>Budget for this project: 200 pounds</p>
+          <h2>job: {{suggestedjob.title}}</h2>
+          <p>Budget for this project: pounds</p>
+          <p>Id : {{suggestedjob.id}} </p>
         </a>
         <div class="item item-body">
           <p>

@@ -1,10 +1,5 @@
-angular.module('app.services', [])
+angular.module('app.services', ['ngResource'])
 
-.factory('BlankFactory', [function(){
-
-}])
-
-.service('BlankService', [function(){
-
-}]);
-
+.factory('SuggestedJobsServ', function($resource) {
+  return $resource('http://skillraildemo.azurewebsites.net/api/Products');
+})

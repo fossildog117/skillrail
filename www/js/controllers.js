@@ -26,38 +26,42 @@ angular.module('app.controllers', [])
 
   //-------------------menu.home-------------
 
-  .controller('homeCtrl', function ($scope) {
-    $scope.suggestedjobs = [{
-      name: 'Logo designer'
-    },
-      {
-        name: 'app develloper'
-      },
-      {
-        name: 'flyer maker'
-      },
-      {
-        name: 'app develloper'
-      },
-      {
-        name: 'app develloper'
-      },
-      {
-        name: 'app develloper'
-      },
-      {
-        name: 'app develloper'
-      },
-      {
-        name: 'app develloper'
-      },
-    ];
+  .controller('homeCtrl', function($scope, $rootScope, SuggestedJobsServ) {
+
+  	$scope.suggestedjobs = SuggestedJobsServ.query();
+  	$scope.pass = function(passedId) {
+  			$rootScope.whichId = passedId;
+  	};
+  	$scope.filterById = function() {
+  		return $rootScope.whichId;
+  	}
   })
 
   .controller('jobDetailsCtrl', function ($scope) {
   })
 
-  .controller('newProposalCtrl', function ($scope) {
+  .controller('newProposalCtrl', function ($scope, $ionicPopup) {
+
+    //this checks that the input fields are correct and activates
+    // function which sends info to backend and opening of confirmation
+    //message
+
+    // A confirm which makes sure
+    	$scope.showConfirm = function() {
+    		var confirmed = true;
+    		var confirmPopup = $ionicPopup.confirm({
+    			title: 'Confirmation',
+    			template: 'Are you sure you want to submit this?'
+    		});
+    		confirmPopup.then(function(res) {
+    			if(res) {
+    				confirmed = true;
+    			} else {
+    				confirmed = false;
+    			}
+    			console.log(confirmed);
+    		});
+    	}
   })
 
   //-------------------menu.browseJobs-------------
@@ -150,4 +154,3 @@ angular.module('app.controllers', [])
   .controller('signupCtrl', function($scope) {
 
   })
-
