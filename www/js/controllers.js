@@ -147,7 +147,12 @@ angular.module('app.controllers', [])
 
   })
 
-  .controller('listingsBusinessCtrl', function($scope) {
+  .controller('listingsBusinessCtrl', function($scope, SuggestedJobsServ) {
+
+    $scope.listings = SuggestedJobsServ.query();
+    $scope.nameOfSupplier = {
+      id:
+    };
 
   })
 

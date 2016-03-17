@@ -1,11 +1,10 @@
 <ion-view title="Listings">
     <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <ion-list ng-controller="viewListingsController">
-          <div class="list">
-            <a ng-repeat="item in listing" class="button button-stable button-block ">
-              <h4>{{item.title}}</h4>
-              <p>{{item.description}}</p>
-              <p>{{item.price}}</p>
+        <ion-list>
+          <div ng-repeat="listing in listings | filter: {supplier : supplierInfo} : true" class="list">
+            <a class="button button-stable button-block">
+              <p>product id: {{listing.id}}</p>
+              <p>supplier name: {{listing.supplier.name}}</p>
             </a>
           </div>
     </ion-content>
