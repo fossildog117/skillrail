@@ -1,8 +1,96 @@
 angular.module('app.controllers', [])
 
+
   //-------------------Login-------------
 
-  .controller('loginCtrl', function ($scope) {
+  .controller('loginCtrl', function ($scope, Post, $http) {
+
+
+
+     //Our form data for creating a new post with ng-model
+    $scope.postData = {
+      grant_type: "password",
+      username: "",
+      password: ""
+    };
+
+
+    var user = {};
+
+    $scope.newPost = function () {
+
+      //var post = new Post({
+      //  grant_type: "password",
+      //  username: $scope.postData.username,
+      //  password: $scope.postData.password,
+      //});
+
+      console.log($scope.postData.username);
+
+      login({
+        grant_type: "password",
+        username: $scope.postData.username,
+        password: $scope.postData.password
+      });
+
+      //post.$save();
+
+    }
+
+    function login(user) {
+      //return Restangular.all('account/login').post(user);
+
+      return $http({
+        method: 'POST',
+        url: 'http://skillraildemo.azurewebsites.net/Token',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+        },
+        transformRequest: function (data) {
+
+          return angular.isObject(data) && String(data) !== '[object File]' ? serialiseAsParams(data) : data;
+        },
+        data: user
+      });
+
+      function serialiseAsParams(obj) {
+        var query = '',
+          name, value, fullSubName, subName, subValue, innerObj, i;
+
+        for (name in obj) {
+          if (!obj.hasOwnProperty(name)) {
+            continue;
+          }
+          value = obj[name];
+
+          if (value instanceof Array) {
+            for (i = 0; i < value.length; ++i) {
+              subValue = value[i];
+              fullSubName = name + '[' + i + ']';
+              innerObj = {};
+              innerObj[fullSubName] = subValue;
+              query += serialiseAsParams(innerObj) + '&';
+            }
+          } else if (value instanceof Object) {
+            for (subName in value) {
+              if (!value.hasOwnProperty(subName)) {
+                continue;
+              }
+              subValue = value[subName];
+              fullSubName = name + '[' + subName + ']';
+              innerObj = {};
+              innerObj[fullSubName] = subValue;
+              query += serialiseAsParams(innerObj) + '&';
+            }
+          } else if (value !== undefined && value !== null) {
+            query += encodeURIComponent(name) + '=' + encodeURIComponent(value) + '&';
+          }
+        }
+
+        return query.length ? query.substr(0, query.length - 1) : query;
+      }
+
+    }
 
   })
 
@@ -135,22 +223,56 @@ angular.module('app.controllers', [])
   //
   // Business
   //
+
   .controller('homeBusinessCtrl', function ($scope) {
 
+    $scope.students = [
+
+      {name: 'Nathan', description: 'I am a student studying computer science at UCL, I am looking for a job'},
+      {name: 'Romain', description: 'I am a student studying computer science, I am looking for a job'},
+      {name: 'Peter', description: 'I am a student studying asteroid student, I am looking for a part time job'},
+      {name: 'Bill', description: 'I am a student studying biology science, I am looking for a job'}];
+
   })
 
-  .controller('newListingBusinessCtrl', function($scope) {
+  .controller('newListingBusinessCtrl', function ($scope) {
 
   })
 
-  .controller('profileBusinessCtrl', function($scope) {
+  .controller('profileBusinessCtrl', function ($scope) {
 
   })
 
   .controller('listingsBusinessCtrl', function($scope, SuggestedJobsServ) {
     $scope.listings = SuggestedJobsServ.query();
+
   })
 
-  .controller('signupCtrl', function($scope) {
+  .controller('signupCtrl', function ($scope) {
+
+  })
+
+
+  .controller('studentProfileBusinessController', function ($scope) {
+
+  })
+
+  .controller('viewListingsBusinessController', function ($scope) {
+
+    var currency = '£';
+
+    $scope.listing = [
+      {
+        title: 'Need graphics designer',
+        description: 'I need a graphics designer to make a sticker for my laptop',
+        price: currency + '60'
+      },
+      {
+        title: 'Programmer needed',
+        description: 'hi i need a programmer to help me install linux onto my computer',
+        price: currency + '34'
+      },
+      {title: 'C++ programmer needed', description: 'hello i am looking for a c++ developer', price: currency + '666'},
+      {title: 'App developer needed', description: 'Need free labour', price: currency + '12'}];
 
   })

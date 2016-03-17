@@ -1,5 +1,11 @@
 angular.module('app.services', ['ngResource'])
 
-.factory('SuggestedJobsServ', function($resource) {
+  .factory('Post', function ($resource) {
+    return $resource('http://skillraildemo.azurewebsites.net/Token');
+  })
+
+
+
+  .factory('SuggestedJobsServ', function($resource) {
   return $resource('http://skillraildemo.azurewebsites.net/api/Products');
 })

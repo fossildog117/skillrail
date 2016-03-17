@@ -198,6 +198,8 @@ angular.module('app.routes', [])
       // ------------- Business -------------------
       // ------------------------------------------
 
+      // From Home
+
       .state('menuBusiness.home', {
         url: '/menuBusiness',
         views: {
@@ -207,6 +209,40 @@ angular.module('app.routes', [])
           }
         }
       })
+
+      .state('studentProfileBusiness', {
+        url: '/studentProfileBusiness',
+        views: {
+          'side-menu22@menuBusiness': {
+            templateUrl: 'templates/studentProfileBusiness.html',
+            controller: 'studentProfileBusinessController'
+          }
+        }
+      })
+
+      // View and edit listings
+
+      .state('menuBusiness.listings', {
+        url: '/listingsBusiness',
+        views: {
+          'side-menu22': {
+            templateUrl: 'templates/listingsBusiness.html',
+            controller: 'listingsBusinessCtrl'
+          }
+        }
+      })
+
+      .state('viewListingBusiness', {
+        url: '/viewListingBusiness',
+        views: {
+          'side-menu22@menuBusiness': {
+            templateUrl: 'templates/viewListingBusiness.html',
+            controller: 'viewListingsBusinessController'
+          }
+        }
+      })
+
+      //
 
       .state('menuBusiness', {
         url: '/side-menu22',
@@ -230,16 +266,6 @@ angular.module('app.routes', [])
           'side-menu22': {
             templateUrl: 'templates/profileBusiness.html',
             controller: 'profileBusinessCtrl'
-          }
-        }
-      })
-
-      .state('menuBusiness.listings', {
-        url: '/listingsBusiness',
-        views: {
-          'side-menu22': {
-            templateUrl: 'templates/listingsBusiness.html',
-            controller: 'listingsBusinessCtrl'
           }
         }
       })
