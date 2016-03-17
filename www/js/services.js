@@ -1,10 +1,14 @@
-angular.module('app.services', [])
+angular.module('app.services', ['ngResource'])
 
-.factory('BlankFactory', [function(){
+  .factory('Post', function ($resource) {
+    return $resource('http://skillraildemo.azurewebsites.net/Token');
+  })
 
-}])
+  .factory('BlankFactory', [function () {
 
-.service('BlankService', [function(){
+  }])
 
-}]);
+  .service('BlankService', [function () {
+
+  }]);
 
