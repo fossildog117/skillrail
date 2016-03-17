@@ -80,7 +80,7 @@ angular.module('app.controllers', [])
 
     $scope.jobs = [{
       name: 'Logo designer'
-    },
+      },
       {
         name: 'app develloper'
       },
@@ -148,12 +148,7 @@ angular.module('app.controllers', [])
   })
 
   .controller('listingsBusinessCtrl', function($scope, SuggestedJobsServ) {
-
     $scope.listings = SuggestedJobsServ.query();
-    $scope.nameOfSupplier = {
-      id:
-    };
-
   })
 
   .controller('signupCtrl', function($scope) {
