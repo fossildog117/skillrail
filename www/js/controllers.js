@@ -17,25 +17,22 @@ angular.module('app.controllers', [])
 
     var user = {};
 
-    $scope.newPost = function () {
+     $scope.newPost = function () {
+            var user = {
+                grant_type: "password",
+                username: $scope.postData.username,
+                password: $scope.postData.password
+            };
 
-      //var post = new Post({
-      //  grant_type: "password",
-      //  username: $scope.postData.username,
-      //  password: $scope.postData.password,
-      //});
+            var x = login(user);
 
-      console.log($scope.postData.username);
+            console.log(x);
 
-      login({
-        grant_type: "password",
-        username: $scope.postData.username,
-        password: $scope.postData.password
-      });
+            if (getAuthenticatedUser != null) {
+                // there is a token
+            }
 
-      //post.$save();
-
-    }
+        };
 
     function login(user) {
       //return Restangular.all('account/login').post(user);
