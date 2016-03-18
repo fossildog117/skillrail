@@ -33,6 +33,10 @@ angular.module('app.controllers', [])
             }
 
         };
+        
+    function getAuthenticatedUser() {
+        return store.get('token') ? store.get('token') : null;
+    }
 
     function login(user) {
       //return Restangular.all('account/login').post(user);
