@@ -10,12 +10,17 @@
           <span class="input-label">Password</span>
           <input type="password" placeholder="Password" ng-model="postData.password">
         </label>
+        <label class="item item-input item-select">
+          <div class="input-label">
+            Sign in as
+          </div>
+          <select id="selectedCategory">
+            <option selected>Business</option>
+            <option>Student</option>
+          </select>
+        </label>
       </ion-list>
-      <a ui-sref="menuBusiness.home" class="button button-stable button-block " ng-click="newPost()">Log in</a>
-      <a ui-sref="menu.home" class="button button-balanced button-block" ng-click="newPost()">
-        Log in as student
-      </a>
-      <button type="submit" class="button button-positive button-block">Create</button>
+      <button type="submit" class="button button-positive button-block" ng-click="newPost()">Sign in</button>
     </form>
     <a ui-sref="createAccount" class="button button-positive button-clear button-block ">Or create an account</a>
   </ion-content>
