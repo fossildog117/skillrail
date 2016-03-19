@@ -3,7 +3,7 @@ angular.module('app.controllers', [])
 
   //-------------------Login-------------
 
-  .controller('loginCtrl', function ($scope, Post, $http) {
+  .controller('loginCtrl', function ($scope, Post, $http, $state) {
 
 
 
@@ -26,10 +26,13 @@ angular.module('app.controllers', [])
 
             var x = login(user);
 
-            console.log(x);
+            var e = document.getElementById("selectedCategory");
+            var strUser = e.options[e.selectedIndex].text;
 
-            if (getAuthenticatedUser != null) {
-                // there is a token
+            if (strUser == "Business") {
+                $state.go('menuBusiness.home');
+            } else {
+                $state.go('menu.home');
             }
 
         };
