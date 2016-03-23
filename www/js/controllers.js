@@ -257,17 +257,20 @@ angular.module('app.controllers', [])
 
     })
 
-    .controller('newListingBusinessCtrl', function ($scope, $ionicPopup, Token) {
-
+    .controller('newListingBusinessCtrl', function ($scope, $ionicPopup, Token, postingNewListingServ) {
 
         //function Ctrl2($scope, sharedProperties) {
         //    $scope.prop2 = "Second";
         //    $scope.both = sharedProperties.getProperty() + $scope.prop2;
         //}
-
+        $scope.newlisting = {
+          title : "",
+          description: "",
+          price: ""
+        }
         $scope.newListing = function () {
 
-            console.log(Token.getProperty());
+            // console.log(Token.getProperty());
 
             var confirmPopup = $ionicPopup.confirm({
                 title: '',
@@ -278,7 +281,17 @@ angular.module('app.controllers', [])
             confirmPopup.then(function (res) {
                 if (res) {
                     console.log('True');
-                    // POST to server
+                    postingNewListingServ.posting(
+                      {
+                        "title": $scope.newlisting.title,
+                        "description": $scope.newlisting.description,
+                        "price": $scope.newlisting.price,
+                        "supplier": {
+                          "id": 99,
+                          "name": "YoyoGogo"
+                        }
+                      }
+                    )
                 } else {
                     console.log('False');
                 }
@@ -327,8 +340,11 @@ angular.module('app.controllers', [])
     })
 
     .controller('listingsBusinessCtrl', function ($scope, SuggestedJobsServ) {
+      //the service might have to change
         $scope.listings = SuggestedJobsServ.query();
-
+        $scope.supplierInfo = {
+          name : "YoyoGogo",
+        }
     })
 
     .controller('signupCtrl', function ($scope) {
@@ -340,29 +356,6 @@ angular.module('app.controllers', [])
 
     })
 
-    .controller('viewListingsBusinessController', function ($scope) {
-
-        var currency = '£';
-
-        $scope.listing = [
-            {
-                title: 'Need graphics designer',
-                description: 'I need a graphics designer to make a sticker for my laptop',
-                price: currency + '60'
-            },
-            {
-                title: 'Programmer needed',
-                description: 'hi i need a programmer to help me install linux onto my computer',
-                price: currency + '34'
-            },
-            {
-                title: 'C++ programmer needed',
-                description: 'hello i am looking for a c++ developer',
-                price: currency + '666'
-            },
-            {title: 'App developer needed', description: 'Need free labour', price: currency + '12'}];
-
-    })
 
     .controller('signupBusinessCtrl', function ($scope) {
 

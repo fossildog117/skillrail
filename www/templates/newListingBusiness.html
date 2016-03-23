@@ -2,15 +2,15 @@
   <ion-content overflow-scroll="true" scroll="true" padding="true" class="has-header">
     <div class="list list-inset">
       <label class="item item-input">
-        <input type="text" placeholder="Title">
+        <input type="text" ng-model="newlisting.title" placeholder="Title">
       </label>
       <label class="item item-input">
-        <input type="number" placeholder="£ Price">
+        <input type="number" ng-model="newlisting.price" placeholder="£ Price">
       </label>
       <label class="item item-input">
-        <textarea rows="5" cols="30" placeholder="Description"></textarea>
+        <textarea rows="5" cols="30" ng-model="newlisting.description" placeholder="Description"></textarea>
       </label>
-      <label class="item item-input item-select">
+      <!-- <label class="item item-input item-select">
         <div class="input-label">
           Location
         </div>
@@ -31,9 +31,9 @@
           <option>Part-time</option>
           <option>Temporary</option>
         </select>
-      </label>
+      </label> -->
     </div>
-    <button class="button button-balanced button-block">
+    <button class="button button-balanced button-block" ng-click= "newListing()">
       Submit
     </button>
   </ion-content>

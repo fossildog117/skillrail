@@ -1,24 +1,10 @@
 <ion-view title="Listings">
-<<<<<<< HEAD
     <ion-content overflow-scroll="true" padding="true" class="has-header">
         <ion-list>
-          <div ng-repeat="listing in listings | filter: {supplier : supplierInfo} : true" class="list">
-            <a class="button button-stable button-block">
+          <ion-item ng-repeat="listing in listings | filter: {supplier : supplierInfo} : true">
               <p>product id: {{listing.id}}</p>
-              <p>supplier name: {{listing.supplier.name}}</p>
-            </a>
-          </div>
+              <p> description: {{listing.description}}</p>
+              <p>by: {{listing.supplier.name}}</p>
+            </ion-item>
     </ion-content>
-=======
-  <ion-content overflow-scroll="true" padding="true" class="has-header">
-    <ion-list ng-controller="viewListingsBusinessController">
-      <div class="list">
-        <a ui-sref="viewListingBusiness" ng-repeat="item in listing" class="button button-stable button-block ">
-          <h4>{{item.title}}</h4>
-          <p>{{item.description}}</p>
-          <p>{{item.price}}</p>
-        </a>
-      </div>
-  </ion-content>
->>>>>>> 596448caaf296621900273c990515f3f8bfc5699
 </ion-view>
