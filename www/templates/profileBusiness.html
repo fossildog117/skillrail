@@ -1,65 +1,45 @@
 <html>
 <style>
-  .margin {
-    margin-top: 10px;
-  }
+    .margin {
+        margin-top: 10px;
+    }
+
+    .background {
+        background-color: #efefef;
+    }
+
 </style>
 <ion-view title="Profile">
-  <body>
-  <ion-content overflow-scroll="true" padding="true" class="has-header">
-    <div class="list">
-      <label class="item item-input item-stacked-label">
-        <span class="input-label">Business Name</span>
-        <input type="text" value="My business name">
-      </label>
-      <label class="item item-input item-stacked-label">
-        <span class="input-label">Password</span>
-        <input type="password" value="hello">
-      </label>
-      <label class="item item-input item-stacked-label">
-        <span class="input-label">Re-type password</span>
-        <input type="password" value="hello">
-      </label>
-      <div class="margin">
-        <ul class="list">
-          <li class="item item-toggle">
-            HTML5
-            <label class="toggle">
-              <input type="checkbox">
-              <div class="track">
-                <div class="handle"></div>
-              </div>
+    <body>
+    <ion-content overflow-scroll="true" padding="true" class="has-header" ng-controller="profileBusinessCtrl">
+        <div class="list" ng-repeat="business in businessProfile" >
+            <label class="item item-stacked-label">
+                <h2>Business Name</h2>
+                <p>{{business.name}}</p>
             </label>
-          </li>
-          <li class="item item-toggle">
-            Hello
-            <label class="toggle">
-              <input type="checkbox">
-              <div class="track">
-                <div class="handle"></div>
-              </div>
+            <label class="item item-stacked-label">
+                <h2 class="input-label">Address</h2>
+                <p>{{business.Address}}</p>
             </label>
-          </li>
-          <li class="item item-toggle">
-            Activate
-            <label class="toggle">
-              <input type="checkbox">
-              <div class="track">
-                <div class="handle"></div>
-              </div>
+            <label class="item item-stacked-label">
+                <h2 class="input-label">Email</h2>
+                <p>{{business.Email}}</p>
             </label>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer1">
-      <div class="bar-footer">
-        <button class="button button-block button-balanced">
-          Save changes
-        </button>
-      </div>
-    </div>
-  </ion-content>
-  </body>
+            <label class="item item-stacked-label">
+                <h2 class="input-label">Telephone</h2>
+                <p>{{business.Telephone}}</p>
+            </label>
+            <label class="item item-stacked-label">
+                <h2 class="input-label">Description </h2>
+                <div class="item item-text-wrap background">{{business.Description}}</div>
+            </label>
+        </div>
+        <div class="footer1">
+            <div class="bar-footer">
+                <a ui-sref="editProfileBusiness" class="button button-stable button-block ">Edit Profile</a>
+            </div>
+        </div>
+    </ion-content>
+    </body>
 </ion-view>
 </html>
