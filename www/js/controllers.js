@@ -2,11 +2,10 @@ angular.module('app.controllers', [])
 
     //-------------------Login-------------
 
-    .controller('loginCtrl', function ($scope, Post, $http, $state) {
+    .controller('loginCtrl', function ($scope, Post, $http, $state, $ionicPopup, Token) {
 
         //Our form data for creating a new post with ng-model
-        $scope.postData = {
-        };
+        $scope.postData = {};
 
         $scope.newPost = function () {
             var user = {
@@ -15,17 +14,39 @@ angular.module('app.controllers', [])
                 password: $scope.postData.password
             };
 
-            var x = login(user);
+            login(user).then(function (value) {
 
-            var e = document.getElementById("selectedCategory");
-            var strUser = e.options[e.selectedIndex].text;
+                var token = value.data["access_token"];
+                var e = document.getElementById("selectedCategory");
+                var strUser = e.options[e.selectedIndex].text;
 
-            if (strUser == "Business") {
-                $state.go('menuBusiness.home');
-            } else {
-                $state.go('menu.home');
-            }
+                if (value.status == 200) {
 
+                    Token.setProperty(token);
+                    console.log(token);
+
+                    if (strUser == "Business") {
+                        $state.go('menuBusiness.home');
+                    } else {
+                        $state.go('menu.home');
+                    }
+                }
+            }, function (value) {
+                console.log(value.status);
+                if (value.status == 400) {
+                    $ionicPopup.alert({
+                        title: '',
+                        template: 'Incorrect email or password',
+                        okText: 'OK'
+                    });
+                } else {
+                    $ionicPopup.alert({
+                        title: '',
+                        template: 'Unknown error',
+                        okText: 'OK'
+                    });
+                }
+            });
         };
 
         function login(user) {
@@ -82,7 +103,7 @@ angular.module('app.controllers', [])
 
     .controller('createAccountCtrl', function ($scope, $state) {
 
-        $scope.click = function() {
+        $scope.click = function () {
 
             var category = document.getElementById("category");
             var selection = category.options[category.selectedIndex].text;
@@ -114,6 +135,8 @@ angular.module('app.controllers', [])
     //-------------------menu.home-------------
 
     .controller('homeCtrl', function ($scope, $rootScope, SuggestedJobsServ) {
+
+        var token;
 
         $scope.suggestedjobs = SuggestedJobsServ.query();
         $scope.pass = function (passedId) {
@@ -234,11 +257,72 @@ angular.module('app.controllers', [])
 
     })
 
-    .controller('newListingBusinessCtrl', function ($scope) {
+    .controller('newListingBusinessCtrl', function ($scope, $ionicPopup, Token) {
 
+
+        //function Ctrl2($scope, sharedProperties) {
+        //    $scope.prop2 = "Second";
+        //    $scope.both = sharedProperties.getProperty() + $scope.prop2;
+        //}
+
+        $scope.newListing = function () {
+
+            console.log(Token.getProperty());
+
+            var confirmPopup = $ionicPopup.confirm({
+                title: '',
+                template: 'Are you want to add this listing',
+                okText: 'Add listing'
+            });
+
+            confirmPopup.then(function (res) {
+                if (res) {
+                    console.log('True');
+                    // POST to server
+                } else {
+                    console.log('False');
+                }
+            });
+        }
     })
 
-    .controller('profileBusinessCtrl', function ($scope) {
+    .controller('profileBusinessCtrl', function ($scope, $ionicPopup) {
+
+        $scope.businessProfile = [
+
+            {
+                name: 'Westfield',
+                Address: '19-29 Woburn Place, London, WC1H 0AQ',
+                Email: 'hello@yolo.co.uk',
+                Telephone: '07787298876',
+                Description: 'If you forget to take a dose of your antibiotics, take that dose as soon as you remember ' +
+                'and then continue to take your course of antibiotics as normal. However, if it is almost time for the ' +
+                'next dose, skip the missed dose and continue your regular dosing schedule. Do not take a double dose to' +
+                ' make up for a missed one. There is an increased risk of side effects if you have to take two doses ' +
+                'closer together than normal.'
+            }
+        ];
+
+        $scope.save = function () {
+
+            var confirmPopup = $ionicPopup.confirm({
+                title: '',
+                template: 'Are you sure you want to save changes',
+                okText: 'Save'
+            });
+
+            confirmPopup.then(function (res) {
+                if (res) {
+                    console.log('True');
+                    // POST to server
+                } else {
+                    console.log('False');
+                }
+            });
+        }
+    })
+
+    .controller('editProfileBusinessCtrl', function ($scope, $ionicPopup) {
 
     })
 
@@ -280,6 +364,6 @@ angular.module('app.controllers', [])
 
     })
 
-    .controller('signupBusinessCtrl', function($scope) {
+    .controller('signupBusinessCtrl', function ($scope) {
 
     });
