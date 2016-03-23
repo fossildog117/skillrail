@@ -260,6 +260,10 @@ angular.module('app.routes', [])
                 }
             })
 
+            // ----------------
+            // Business Profile
+            // ----------------
+
             .state('menuBusiness.profile', {
                 url: '/profileBusiness',
                 views: {
@@ -269,6 +273,19 @@ angular.module('app.routes', [])
                     }
                 }
             })
+
+            .state('editProfileBusiness', {
+                url: '/editProfileBusiness',
+                views: {
+                    'side-menu22@menuBusiness': {
+                        templateUrl: 'templates/editProfileBusiness.html',
+                        controller: 'editProfileBusinessCtrl'
+                    }
+                }
+            })
+
+            // ----------------
+
 
             .state('signup', {
                 url: '/signup',
