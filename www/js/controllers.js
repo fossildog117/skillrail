@@ -101,21 +101,61 @@ angular.module('app.controllers', [])
 
     })
 
-    .controller('createAccountCtrl', function ($scope, $state) {
+    .controller('createAccountCtrl', function ($scope, $state, $ionicPopup, registeringServ) {
 
         $scope.click = function () {
-
             var category = document.getElementById("category");
             var selection = category.options[category.selectedIndex].text;
-
             if (selection == "Student") {
                 $state.go('createStudentProfile1');
             } else {
                 $state.go('signupBusiness');
             }
-
         }
 
+        $scope.newUser = {
+          email : "",
+          password: "",
+          password2: "",
+          isStudent: true
+        }
+
+        $scope.create = function(newUser){
+
+            var selection = category.options[category.selectedIndex].text;
+            if (selection == "Student") {
+              $scope.newUser.isStudent = true;
+            } else {
+              $scope.newUser.isStudent = false;
+            }
+
+              var confirmPopup = $ionicPopup.confirm({
+                  title: 'Interested in Skillrail?',
+                  template: 'Sure you want to create an account as: '+ selection,
+                  okText: 'yes'
+              });
+
+              confirmPopup.then(function (res) {
+                  if (res) {
+                      console.log('True');
+                      registeringServ.register(
+                        {
+                            "email": $scope.newUser.email,
+                            "password": $scope.newUser.password,
+                            "confirmPassword" : $scope.newUser.password2,
+                            "firstName": "Test",
+                            "lastName": "TestJack",
+                            "isStudent": $scope.newUser.isStudent,
+                            "studentEmail": "sample@sample.com"
+                          }).then(function (value) {
+                              console.log(value.data);
+                            })
+
+                  } else {
+                      console.log('False');
+                  }
+                })
+              }
     })
 
     .controller('createStudentProfile1Ctrl', function ($scope) {
@@ -271,7 +311,6 @@ angular.module('app.controllers', [])
         $scope.newListing = function () {
 
             // console.log(Token.getProperty());
-
             var confirmPopup = $ionicPopup.confirm({
                 title: '',
                 template: 'Are you want to add this listing',
