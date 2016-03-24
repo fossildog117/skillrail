@@ -1,41 +1,37 @@
 angular.module('app.services', ['ngResource'])
 
-    .factory('Post', function ($resource) {
-        return $resource(baseUrl +'/Token');
-    })
+  .factory('Post', function ($resource) {
+    return $resource('https://data.skillrail.com/Token');
+  })
 
+  .factory('SuggestedJobsServ', function ($resource) {
+    return $resource('https://data.skillrail.com/Products');
+  })
 
-    .factory('SuggestedJobsServ', function ($resource) {
-        return $resource(baseUrl +'/api/Products');
-    })
-
-    .factory('postingNewListingServ', function ($http) {
-        return {
-          posting : function(user) {
-            return $http.post(baseUrl + '/api/Products/5', user);
+  .service('GetProfile', function ($http) {
+    return {
+      getProfile: function(token) {
+        return $http({
+          method: 'GET',
+          url: 'https://data.skillrail.com/api/MyProfile',
+          headers: {
+            'Authorization': 'Bearer ' + token
           }
-        }
-    })
+        });
+      }
+    }
+  })
 
-    .factory('registeringServ', function($http) {
-        return {
-          register : function(newUser) {
-            return $http.post(baseUrl + '/api/Account/Register', newUser);
-          }
-        }
-    })
+  .service('Token', function () {
 
+    var Token = 'Token';
 
-    .service('Token', function () {
-        var Token = 'Token';
-        return {
-            getProperty: function () {
-                return Token;
-            },
-            setProperty: function (value) {
-                Token = value;
-            }
-        };
-    });
-
-    var baseUrl = 'http://skillraildemo.azurewebsites.net/';
+    return {
+      getProperty: function () {
+        return Token;
+      },
+      setProperty: function (value) {
+        Token = value;
+      }
+    };
+  });
